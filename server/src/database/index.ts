@@ -1,8 +1,5 @@
-// import dotenv from 'dotenv';
 import { DataSource } from "typeorm";
 import { Links } from "./entities/Links";
-
-// dotenv.config({path: '../'})
 
 const AppDataSource = new DataSource({
     type: "mysql",
