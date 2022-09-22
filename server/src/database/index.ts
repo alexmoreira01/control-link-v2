@@ -9,7 +9,8 @@ const AppDataSource = new DataSource({
     password: process.env.Password,
     database: process.env.Database,
     entities: [Links],
-    migrations: ["./src/database/migrations/*.ts"]
+    migrations: ["./dist/database/migrations/*.ts"]
+    // migrations: ["./src/database/migrations/*.ts"]
 })
 
 AppDataSource.initialize()
