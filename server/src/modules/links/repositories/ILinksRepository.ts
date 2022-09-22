@@ -3,7 +3,7 @@ import { Links } from "../../../database/entities/Links";
 interface ILinkRepository{
     createLink(label: string, url: string): Promise<void>;
 
-    findLinks() :Promise<Links>;
+    listLinks() :Promise<Links[]>;
 
     findLinkById(id: number): Promise<Links>;
 

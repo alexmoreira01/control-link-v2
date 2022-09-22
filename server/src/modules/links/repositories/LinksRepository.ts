@@ -21,10 +21,14 @@ class LinksRepository implements ILinkRepository {
         await this.repository.save(createLink);
     }
 
-    async findLinks(): Promise<Links> {
-        const allLinks = await this.repository.find();
+    async listLinks(): Promise<Links[]> {
 
-        return allLinks as unknown as Links;
+        const allLinks = await this.repository
+            .createQueryBuilder()
+            .orderBy("id", "DESC")
+            .getMany()
+
+        return allLinks;
     }
 
     async findLinkById(id: number): Promise<Links> {

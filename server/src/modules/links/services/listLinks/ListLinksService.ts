@@ -5,18 +5,18 @@ import { ILinkRepository } from "../../repositories/ILinksRepository";
 import { Links } from "../../../../database/entities/Links";
 
 @injectable()
-class FindLinksService {
+class ListLinksService {
     constructor(
         @inject("LinksRepository")
         private linksRepository: ILinkRepository
     ){}
 
-    async execute(): Promise<Links> {
+    async execute(): Promise<Links[]> {
 
-        const links = await this.linksRepository.findLinks()
+        const links = await this.linksRepository.listLinks()
 
         return links;
     }
 }
 
-export { FindLinksService };
+export { ListLinksService };
