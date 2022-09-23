@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
-import axios from 'axios';
+import { api } from './services/api';
 
 import './styles/main.css';
 
-
 import { Header } from './components/Header';
-import { Button } from './components/Button';
 import { Heading } from './components/Heading';
-import { CreateLinkModal } from './components/ModalDialog/CreateLinkModal';
 
-interface Link {
+import { CreateLinkModal } from './components/ModalDialog/CreateLinkModal';
+import { Update_DeleteLinkModal } from './components/ModalDialog/Update_DeleteLinkModal';
+
+export interface Link {
   id: number;
   label: string;
   url: string;
@@ -19,19 +19,37 @@ interface Link {
 
 function App() {
   const [links, setLinks] = useState<Link[]>([])
+
+  const [linksPerPage, setLinksPerPage] = useState(5);
+  const [currentPage, setCurrentPage] = useState(0)
+
+  const [linkSelected, setLinkSelected] = useState(Object);
+
   const [open, setOpen] = useState(false);
+  const [openUpdate_Delete, setOpenUpdate_Delete] = useState(false);
+
   const [reload, setReload] = useState(false);
 
-  function handleCloseCreateLinkModal(){
+  // Pagination
+  const pages = Math.ceil(links.length / linksPerPage);
+  const startIndex = currentPage * linksPerPage;
+  const endIndex = startIndex + linksPerPage;
+  const currentLinks = links.slice(startIndex, endIndex)
+
+  function handleCloseCreateLinkModal() {
     setOpen(false)
   }
 
-  function handleReloadLinkRequest(){
+  function handleCloseUpdate_DeleteLinkModal() {
+    setOpenUpdate_Delete(false)
+  }
+
+  function handleReloadLinkRequest() {
     setReload(true)
   }
 
   useEffect(() => {
-    axios('http://localhost:3333/links').then(response => {
+    api.get('/list').then(response => {
       setLinks(response.data)
     })
 
@@ -51,12 +69,11 @@ function App() {
             title="Gerenciar Links"
           />
 
-          <CreateLinkModal 
-            onRequestClose = {handleCloseCreateLinkModal}
-            onReloadLinksRequest = {handleReloadLinkRequest}
-            />
+          <CreateLinkModal
+            onRequestClose={handleCloseCreateLinkModal}
+            onReloadLinksRequest={handleReloadLinkRequest}
+          />
         </Dialog.Root>
-
 
         {/* Table links */}
         <div className="bg-zinc-300 p-5 rounded-lg mt-3">
@@ -76,13 +93,24 @@ function App() {
               </thead>
 
               <tbody className="divide-y divide-gray-200">
-                {links.map(link => (
+                {currentLinks.map(link => (
                   <tr key={link.id}>
-
+                    
+                    {/* Button edit link */}
                     <td className="px-2 py-3 text-base font-semibold whitespace-normal" >
-                      <button className="text-base text-white bg-green-600 rounded-md px-3 py-2 hover:bg-green-700" type="button">
-                        Editar
-                      </button>
+                      <Dialog.Root open={openUpdate_Delete} onOpenChange={setOpenUpdate_Delete}>
+                        <Dialog.Trigger className="text-base text-white bg-green-600 rounded-md px-3 py-2 hover:bg-green-700" type="button"
+                          onClick={() => { setLinkSelected(link) }}
+                        >
+                          Editar
+                        </Dialog.Trigger>
+
+                        <Update_DeleteLinkModal
+                          linkSelected={linkSelected}
+                          onModalClose={handleCloseUpdate_DeleteLinkModal}
+                          onReloadLinksRequest={handleReloadLinkRequest}
+                        />
+                      </Dialog.Root>
                     </td>
 
                     <td className="px-2 py-3 text-base font-semibold whitespace-normal">
@@ -104,9 +132,16 @@ function App() {
               </tbody>
             </table>
           </div>
-
         </div>
 
+        <div className="flex justify-center" >
+          {Array.from(Array(pages), (item, index) => {
+            return <button className={`rounded m-2 px-3 py-1 ${index === currentPage ? "bg-green-600" : "bg-zinc-300"}  hover:bg-green-700`}
+                      value={index} 
+                      onClick={() =>{ setCurrentPage(index)}} >{index + 1}
+                    </button>
+          })}
+        </div>
       </div>
     </div>
   )

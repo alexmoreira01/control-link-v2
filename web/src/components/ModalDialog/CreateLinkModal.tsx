@@ -1,6 +1,6 @@
 import * as Dialog from '@radix-ui/react-dialog';
-import axios from 'axios';
-import { FormEvent, useState } from 'react';
+import { FormEvent } from 'react';
+import { api } from '../../services/api';
 import { Input } from '../Form/input';
 
 interface CreateLinkModalProps {
@@ -23,10 +23,14 @@ export function CreateLinkModal({onRequestClose, onReloadLinksRequest}: CreateLi
     }
 
     try {
-      await axios.post(`http://localhost:3333/link/`, {
+      await api.post('/create', {
         label: data.label,
-        url: data.url,
+        url: data.url
       })
+      // await axios.post(`http://localhost:3333/link/`, {
+      //   label: data.label,
+      //   url: data.url,
+      // })
 
       onReloadLinksRequest();
       onRequestClose();
