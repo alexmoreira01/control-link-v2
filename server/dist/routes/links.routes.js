@@ -17,6 +17,8 @@ var _UpdateLinkController = require("../modules/links/services/updateLink/Update
 
 var _DeleteLinkController = require("../modules/links/services/deleteLink/DeleteLinkController");
 
+var _ImportLinkController = require("../modules/links/services/importLink/ImportLinkController");
+
 const linksRoutes = (0, _express.Router)();
 exports.linksRoutes = linksRoutes;
 const listLinkController = new _ListLinksController.ListLinksController();
@@ -24,8 +26,10 @@ const findLinkController = new _FindLinkController.FindLinkController();
 const createLinkController = new _CreateLinkController.CreateLinkController();
 const updateLinkController = new _UpdateLinkController.UpdateLinkController();
 const deleteLinkController = new _DeleteLinkController.DeleteLinkController();
+const importLinkController = new _ImportLinkController.ImportLinkController();
 linksRoutes.get('/list', listLinkController.handle);
 linksRoutes.get('/find/:id', findLinkController.handle);
 linksRoutes.post('/create', createLinkController.handle);
 linksRoutes.put('/update/:id', updateLinkController.handle);
 linksRoutes.delete('/delete/:id', deleteLinkController.handle);
+linksRoutes.post('/devGo/import', importLinkController.handle);
