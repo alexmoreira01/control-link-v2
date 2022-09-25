@@ -27,10 +27,6 @@ export function CreateLinkModal({onRequestClose, onReloadLinksRequest}: CreateLi
         label: data.label,
         url: data.url
       })
-      // await axios.post(`http://localhost:3333/link/`, {
-      //   label: data.label,
-      //   url: data.url,
-      // })
 
       onReloadLinksRequest();
       onRequestClose();

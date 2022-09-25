@@ -9,6 +9,7 @@ import { Heading } from './components/Heading';
 
 import { CreateLinkModal } from './components/ModalDialog/CreateLinkModal';
 import { Update_DeleteLinkModal } from './components/ModalDialog/Update_DeleteLinkModal';
+import Loading from './components/Loading';
 
 export interface Link {
   id: number;
@@ -18,7 +19,8 @@ export interface Link {
 }
 
 function App() {
-  const [links, setLinks] = useState<Link[]>([])
+  const [isLoading, setIsLoading] = useState(false);
+  const [links, setLinks] = useState<Link[]>([]);
 
   const [linksPerPage, setLinksPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(0)
@@ -48,6 +50,14 @@ function App() {
     setReload(true)
   }
 
+  function handleActiveLoading() {
+    setIsLoading(true)
+  }
+
+  function handleDesactiveLoading(){
+    setIsLoading(false)
+  }
+
   useEffect(() => {
     api.get('/list').then(response => {
       setLinks(response.data)
@@ -57,9 +67,15 @@ function App() {
   }, [reload])
 
   return (
-    <div className=" mx-auto flex flex-col my-5 mx-5" >
+    <div className=" mx-auto flex flex-col">
 
-      <Header />
+      <Header 
+        onReloadLinksRequest={handleReloadLinkRequest}
+        handleActiveLoading={handleActiveLoading}
+        handleDesactiveLoading={handleDesactiveLoading}
+      />
+
+      {isLoading ? <Loading/> : '' }  
 
       <div className="max-w-[1140px] m-auto items-center ">
 
