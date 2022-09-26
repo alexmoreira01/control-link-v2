@@ -46,16 +46,18 @@ Para criar o build da Api foi utiliado o babel para gerar a compilação para ja
 ## Rotas da aplicação
 ### Links
 - > http://54.211.140.125/link/list : Listagem de todos os links
-- > http://54.211.140.125/link/create : Criação de links
-- > http://54.211.140.125/link/devGo/import : Importação de link, foi passado a url: "https://devgo.com.br/"
+- > http://54.211.140.125/link/create : Criação de links com informações passadas no body
+- > http://54.211.140.125/link/devGo/import : Importação de link, foi passado no body a url: "https://devgo.com.br/"
 - > http://54.211.140.125/link/update/:id : Atualização de um link pelo seu id
-- > http://54.211.140.125/link/delete/12: Deleta um link pelo seu id
+- > http://54.211.140.125/link/delete/:id: Deleta um link pelo seu id
 
 ## Deploy da Aplicação com Netlify e Aws:
 
 > https://control-links.netlify.app/ - Front-end
 
-> http://54.211.140.125 - Back-end, acesso a Api
+> http://54.211.140.125 - Back-end, acesso a Api http - requisições pelo insomnia
+
+> https://dev.freelancerdesucesso.fun/ - Back-end, acesso a Api com https - não propagado ainda
 
 ## Para se executar o projeto em desenvolimento ou build
 
