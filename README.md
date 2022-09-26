@@ -70,4 +70,10 @@ Para criar o build da Api foi utiliado o babel para gerar a compilação para ja
 - yarn crawlerTest na pasta server -> Busca links de artigos para testes na Alura
 - yarn crawlerDev na pasta server -> Busca links de artigos para testes na devGo
  
+ <br>
+ 
+ ## Print App
+ ![image](https://user-images.githubusercontent.com/77466610/192182660-9ddf644d-81ea-41aa-89fe-b04402a4b658.png)
+ ![image](https://user-images.githubusercontent.com/77466610/192182735-0ce41fde-4a5e-46aa-9b86-f5cf7c7096c4.png)
+
  
