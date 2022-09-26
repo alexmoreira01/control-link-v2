@@ -92,7 +92,7 @@ function App() {
         </Dialog.Root>
 
         {/* Table links */}
-        <div className="bg-zinc-300 p-5 rounded-lg mt-3">
+        <div className="w-[1100px] bg-zinc-300 p-5 rounded-lg mt-3">
           <div className="px-2">
             <h2 className="text-base leading-6 font-semibold text-black">Total de links: {links.length}</h2>
           </div>
