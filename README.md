@@ -44,7 +44,7 @@ Para criar o build da Api foi utiliado o babel para gerar a compilação para ja
 <br>
 
 ## Rotas da aplicação
-### Links
+### Links - rotas utilizando somente o http - para o https utilizar https://dev.freelancerdesucesso.fun/
 - > http://54.211.140.125/link/list : Listagem de todos os links
 - > http://54.211.140.125/link/create : Criação de links com informações passadas no body
 - > http://54.211.140.125/link/devGo/import : Importação de link, foi passado no body a url: "https://devgo.com.br/"
