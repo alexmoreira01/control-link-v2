@@ -44,18 +44,20 @@ Para criar o build da Api foi utiliado o babel para gerar a compilação para ja
 <br>
 
 ## Rotas da aplicação
-### Links
+### Links - rotas utilizando somente o http - para o https utilizar https://dev.freelancerdesucesso.fun/
 - > http://54.211.140.125/link/list : Listagem de todos os links
-- > http://54.211.140.125/link/create : Criação de links
-- > http://54.211.140.125/link/devGo/import : Importação de link, foi passado a url: "https://devgo.com.br/"
+- > http://54.211.140.125/link/create : Criação de links com informações passadas no body
+- > http://54.211.140.125/link/devGo/import : Importação de link, foi passado no body a url: "https://devgo.com.br/"
 - > http://54.211.140.125/link/update/:id : Atualização de um link pelo seu id
-- > http://54.211.140.125/link/delete/12: Deleta um link pelo seu id
+- > http://54.211.140.125/link/delete/:id: Deleta um link pelo seu id
 
 ## Deploy da Aplicação com Netlify e Aws:
 
 > https://control-links.netlify.app/ - Front-end
 
-> http://54.211.140.125 - Back-end, acesso a Api
+> http://54.211.140.125 - Back-end, acesso a Api http - requisições pelo insomnia
+
+> https://dev.freelancerdesucesso.fun/ - Back-end, acesso a Api com https - não propagado ainda
 
 ## Para se executar o projeto em desenvolimento ou build
 
@@ -70,4 +72,10 @@ Para criar o build da Api foi utiliado o babel para gerar a compilação para ja
 - yarn crawlerTest na pasta server -> Busca links de artigos para testes na Alura
 - yarn crawlerDev na pasta server -> Busca links de artigos para testes na devGo
  
+ <br>
+ 
+ ## Print App
+ ![image](https://user-images.githubusercontent.com/77466610/192182660-9ddf644d-81ea-41aa-89fe-b04402a4b658.png)
+ ![image](https://user-images.githubusercontent.com/77466610/192182735-0ce41fde-4a5e-46aa-9b86-f5cf7c7096c4.png)
+
  
