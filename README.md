@@ -1,15 +1,12 @@
-﻿# ControlLink-Dev
+﻿# Control-Link
  
  ## Projeto foi desenvolvido com ReactJs, NodeJs, TypeScript e MySql, e fornece uma aplicação para gerenciar os links dos seus artigos.
  
  > Status do Projeto: Concluido :heavy_check_mark:
  
- ## Atualização sobre o domínio
- Não obtive sucesso com a propagação da dns até o momento, portanto a aplicação front end caso seja executada em ambiente de desenvolvimento pode ser utilizado o acesso http com ip público do servidor na aws sendo ele: http://54.211.140.125 com as rotas sendo detalhadas em "Rotas da aplicação", mas ela ainda esta hospedada em https://control-links.netlify.app/ , porém sem acesso a Api.
- 
  <br>
  
-O acesso ao banco de dados tanto em desenvolvimento como em produção(acessando pelo ip público), sempre ira utilizar uma conexão com o banco MySql na HostGator, optei por deixar minhas próprias credenciais de acesso no arquivo .env na pasta server, caso queiram utilizar a api em desenvolvimento, com isso não é necessário rodar as migrations para se criar a tabela no banco, mas caso a utilize o caminho da pasta deve ser alterado como esta detalhado abaixo em "Para se executar o projeto em desenvolvimento ou build".
+O acesso ao banco de dados tanto em desenvolvimento como em produção, ira utilizar uma conexão com o banco MySql na HostGator, para rodar as migrations para se criar as tabelas no banco deve ser alterado como esta detalhado abaixo em "Para se executar o projeto em desenvolvimento ou build".
  
  ## Principais linguagens e libs utilizadas
 
@@ -28,7 +25,6 @@ O acesso ao banco de dados tanto em desenvolvimento como em produção(acessando
 - [Node-Fetch](https://www.npmjs.com/package/node-fetch)
 
 
- 
  ## Front-End - ReactJS
  
  Foi utilizado ReactJs e TypeScript para a criar as interfaces e o vite.js para o build da aplicação, na estilização foi utilizado o tailwindcss que me ajudou de maneira rapida a criar o estilo da pagina, para os modais da aplicação utilizados para criar e atualizar informações foi utilizado o Dialog do Radix ui.
@@ -80,7 +76,6 @@ Para criar o build da Api foi utiliado o babel para gerar a compilação para ja
 ## Para se executar o projeto em desenvolvimento ou build
 
 #### Atenção ao se rodar as migrations do typeorm deve se alterar a pasta em server/src/database/index.ts, que esta comentado, o caminho para acesso das migrations é alterado quando se gera o build da aplicação.
-#### O link utilizado pelo axios em web/src/services/api.ts, também deve ser alterado e nele ja contém o link que é a rota padrão para acesso das outras, em desenvolvimento esta: http://54.211.140.125/link e em produção https://dev.freelancerdesucesso.fun/link
 
 - Instalar dependências - Executar na pasta web e server - yarn ou npm
 ```sh
