@@ -9,6 +9,7 @@
     "cheerio": "^1.0.0-rc.3",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
+    "dotenv": "^16.0.3",
     "express": "^4.18.1",
     "mysql": "^2.18.1",
     "node-fetch": "^2.6.1",
@@ -19,10 +20,10 @@
     "uuid": "^9.0.0"
   },
   "scripts": {
-    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts",
+    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/infra/server.ts",
     "start": "node dist/server.js",
     "build": "babel src --extensions \".js,.ts\" --out-dir dist/ --copy-files",
-    "typeorm": "typeorm-ts-node-commonjs",
+    "typeorm": "typeorm-ts-node-commonjs -d ./src/infra/database/typeorm/index.ts",
     "crawlerTest": "ts-node src/webCrawler/aluraBlog.ts",
     "crawlerDev": "ts-node src/webCrawler/devGo.ts"
   },
