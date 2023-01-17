@@ -8,13 +8,13 @@ console.log(process.env.HOST)
 export const AppDataSource = new DataSource({
     type: "mysql",
     host: process.env.HOST,
-    port: Number(process.env.PORT),
+    port: Number(process.env.PORT_DB),
     username: process.env.USERNAME_DB,
     password: process.env.PASSWORD,
     database: process.env.DATABASE_NAME,
     entities: [Links],
-    // migrations: ["./dist/database/migrations/*.ts"]
-    migrations: ["./src/infra/database/typeorm/migrations/*.ts"]
+    migrations: ["./dist/infra/database/typeorm/migrations/*.ts"]
+    // migrations: ["./src/infra/database/typeorm/migrations/*.ts"]
 })
 
 AppDataSource.initialize()
