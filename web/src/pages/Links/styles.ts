@@ -22,7 +22,7 @@ export const LinkHeading = styled.div`
   button {
     /* width: 100%; */
     border: 0;
-    padding: 0.8rem;
+    padding: 0.7rem;
     border-radius: 6px;
 
     display: flex;
@@ -48,7 +48,7 @@ export const LinkHeading = styled.div`
 export const LinkList = styled.div`
   flex: 1;
   overflow: auto;
-  margin-top: 2rem;
+  margin-top: 1.3rem;
 
   table {
     width: 100%;
@@ -110,18 +110,39 @@ export const LinkList = styled.div`
   }
 `;
 
-
-export const LinksListEmpty = styled.div`
-  display: flex;  
+export const Pagination = styled.div`
+  display: flex;
   justify-content: center;
-  align-items: center;
-  align-content: center;
 
-  margin-top: 24px;
+  margin-top: 2rem;
 
-  border-radius: 8px;
-  border-top: 1px solid var(--gray-400);
+  button {
+    display: inline-flex;
+    height: 32px;
+    min-width: 32px;
+    
+    margin: 0px 3px;
+    padding: 0px 6px;
+    border-radius: 16px;
+    box-sizing: border-box;
+
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
+    background-color: ${(props) => props.theme["green-300"]};
+    color: ${(props) => props.theme["gray-100"]};
+    
+    font-weight: 400;
+    font-size: 0.875rem;
+    
+    cursor: pointer;
+    
+    transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  }
 `;
+
+
 
 
 
