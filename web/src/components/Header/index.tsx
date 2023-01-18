@@ -21,11 +21,10 @@
 //     //     handleDesactiveLoading()
 //     //   }
 
-import { HeaderContainer } from "./styles";
+import { ButtonImport, HeaderContainer } from "./styles";
 
 import linkLogo from "../../assets/link.svg";
-import { Scroll, Timer } from "phosphor-react";
-import { NavLink } from "react-router-dom";
+import { LinkSimple } from "phosphor-react";
 
 export function Header() {
     return (
@@ -35,13 +34,14 @@ export function Header() {
                 <h1>Control-Links</h1>
             </div>
 
-            <button
+            <ButtonImport
 
             // onClick={handleImportLinkDevGo}
             >
-                Importar links DevGo
+                Importar DevGo
+                <LinkSimple size={24}/>
 
-            </button>
+            </ButtonImport>
         </HeaderContainer>
     );
 }

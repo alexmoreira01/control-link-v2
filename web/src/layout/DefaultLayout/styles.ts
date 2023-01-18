@@ -18,7 +18,8 @@ export const LayoutContainer = styled.div`
 export const ContainerContent = styled.div`
   width: 74rem;
   max-width: 74rem;
-  height: calc(100vh - 8rem);
+  /* height: calc(100vh - 8rem); */
+  height: fit-content;
   margin: 5rem auto;
   padding: 2.5rem;
 

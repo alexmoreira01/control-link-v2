@@ -11,30 +11,27 @@ export const HeaderContainer = styled.header`
     font-size: 1rem;
   }
 
-  nav {
+  
+`;
+
+export const ButtonImport = styled.button`
+  border: 0;
+    padding: 0.6rem;
+    border-radius: 6px;
+
     display: flex;
-    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    color: ${(props) => props.theme["gray-100"]};
 
-    a {
-      width: 3rem;
-      height: 3rem;
+    gap: 0.4rem;
+    font-weight: bold;
 
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    cursor: pointer;
 
-      color: ${(props) => props.theme["gray-100"]};
+    background: ${(props) => props.theme["green-500"]};
 
-      border-top: 3px solid transparent;
-      border-bottom: 3px solid transparent;
-
-      &:hover {
-        border-bottom: 3px solid ${(props) => props.theme["green-500"]};
-      }
-
-      &.active {
-        color: ${(props) => props.theme["green-500"]};
-      }
+    &:not(:disabled):hover {
+      background: ${(props) => props.theme["green-700"]};
     }
-  }
 `;
