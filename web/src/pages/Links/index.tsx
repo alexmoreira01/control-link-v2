@@ -6,9 +6,9 @@ import { PlusCircle, NotePencil } from "phosphor-react";
 import { formatDistanceToNow } from "date-fns";
 import ptBR from "date-fns/esm/locale/pt-BR";
 
-import { CreateLinkModal } from '../../components/ModalDialog/CreateLinkModal';
+import { CreateLinkModal } from './components/ModalDialog/CreateLinkModal';
 import Loading from '../../components/Loading';
-import { Update_DeleteLinkModal } from '../../components/ModalDialog/Update_DeleteLinkModal';
+import { Update_DeleteLinkModal } from './components/ModalDialog/Update_DeleteLinkModal';
 import { api } from '../../services/api';
 
 import { LinkContainer, LinkHeading, LinkList, Pagination } from './styles';
@@ -78,6 +78,7 @@ export function Link() {
             Criar
             <PlusCircle size={24} />
           </Dialog.Trigger>
+          
           <CreateLinkModal
             onRequestClose={handleCloseCreateLinkModal}
             onReloadLinksRequest={handleReloadLinkRequest}

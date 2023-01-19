@@ -7,7 +7,7 @@ export interface CreateLinkData {
     url: string;
 }
 
-interface Link {
+export interface Link {
     id: string;
     label: string;
     url: string;

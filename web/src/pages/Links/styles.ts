@@ -43,8 +43,6 @@ export const LinkHeading = styled.div`
   }
 `;
 
-// export const Heading
-
 export const LinkList = styled.div`
   flex: 1;
   overflow: auto;
