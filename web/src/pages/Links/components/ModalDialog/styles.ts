@@ -26,7 +26,7 @@ export const ModelContent = styled.div`
     width: 450px;
     height: 300px;
 
-    padding: 2.5rem;
+    padding: 2rem;
     
     position: absolute;
     margin:0 auto;
@@ -38,7 +38,8 @@ export const ModelContent = styled.div`
     line-height: 1.6;
     
     border-radius: 9px;
-    /* border:1px solid; */
+    box-shadow: 0 0 0 0;
+    border: 2px solid ${(props) => props.theme["gray-900"]};
 
     background-color: ${(props) => props.theme["gray-800"]};
     
@@ -104,6 +105,8 @@ export const ButtonCreate = styled(BaseButton)`
 `;
 
 export const ButtonDelete = styled(BaseButton)`
+    border: none;
+
     background: ${(props) => props.theme["red-500"]};
 
     &:not(:disabled):hover {
@@ -111,4 +114,29 @@ export const ButtonDelete = styled(BaseButton)`
 }
 `;
 
+export const TextBox = styled.div`
+    display: flex;
+    flex-direction: column;
+
+    label {
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    input {
+        all: unset;
+        /* width: 100%; */
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
+        line-height: 1.6;
+        color: ${(props) => props.theme["gray-100"]};
+        box-shadow: ${(props) => props.theme["gray-200"]} 0px 0px 0px 1px;
+        height: 35px;
+        flex: 1 1 0%;
+        border-radius: 4px;
+        padding: 0.7rem 0.9rem;
+    }
+`;
 

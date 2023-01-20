@@ -1,8 +1,10 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { FormEvent } from 'react';
 import { api } from '../../../../services/api';
-import { Input } from '../../../../components/Form/input';
-import { ButtonCreate, ModalContainer, ModelContent } from './styles';
+import { ButtonCreate, ModalContainer, ModelContent, TextBox } from './styles';
+
+import { styled as styledUi, keyframes } from '@stitches/react';
+
 
 interface CreateLinkModalProps {
   onRequestClose: () => void;
@@ -41,23 +43,25 @@ export function CreateLinkModal({ onRequestClose, onReloadLinksRequest }: Create
       {/* <div> */}
 
       <Dialog.Portal>
+        <DialogOverlay />
         <ModelContent>
 
           <Dialog.Overlay/>
 
-          <Dialog.Content>
+          <DialogContent>
             <Dialog.Title>Cadastre o seu link </Dialog.Title>
 
             <form onSubmit={handleCreateLink}>
-              <div>
+              <TextBox>
                 <label htmlFor="">Título do link</label>
-                <Input name="label" id='label' type='text' />
-              </div>
+                <input type="text" id='label'/>
+                {/* <Input name="label" id='label' type='text' /> */}
+              </TextBox>
 
-              <div>
+              <TextBox>
                 <label htmlFor="url" >Url do link</label>
-                <Input name="url" id='url' type='text' />
-              </div>
+                <input name="url" id='url' type='text' />
+              </TextBox>
 
               <footer>
 
@@ -74,7 +78,7 @@ export function CreateLinkModal({ onRequestClose, onReloadLinksRequest }: Create
 
             </form>
 
-          </Dialog.Content>
+          </DialogContent>
         </ModelContent>
       </Dialog.Portal>
       {/* </div> */}
@@ -82,4 +86,23 @@ export function CreateLinkModal({ onRequestClose, onReloadLinksRequest }: Create
     </ModalContainer>
 
   )
+
+  
 }
+
+const overlayShow = keyframes({
+  '0%': { opacity: 0 },
+  '100%': { opacity: 1 },
+});
+
+
+const DialogOverlay = styledUi(Dialog.Overlay, {
+  backgroundColor: "#00000094",
+  position: 'fixed',
+  inset: 0,
+  animation: `${overlayShow} 150ms cubic-bezier(0.16, 1, 0.3, 1)`,
+});
+
+const DialogContent = styledUi(Dialog.Content, {
+  boxShadow: "0 0 0 0 !important",
+});

@@ -2,8 +2,8 @@ export const defaultTheme = {
     white: "#FFF",
   
     "gray-100": "#E1E1E6",
+    "gray-200": "#8D8D99", 
     "gray-300": "#C4C4CC",
-    // "gray-400": "#8D8D99", pode se usar para fundo de texto ou a de baixo
     "gray-400": "#7C7C8A",
     "gray-500": "#5e5e65",
     "gray-600": "#323238",

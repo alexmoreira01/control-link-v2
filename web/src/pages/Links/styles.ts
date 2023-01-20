@@ -46,12 +46,13 @@ export const LinkHeading = styled.div`
 export const LinkList = styled.div`
   flex: 1;
   overflow: auto;
-  margin-top: 1.3rem;
 
   table {
     width: 100%;
     border-collapse: collapse; // Uma so borda entre os elementos
     min-width: 600px;
+
+    margin-top: 1.3rem;
 
     th {
       background-color: ${(props) => props.theme["gray-600"]};
@@ -62,11 +63,21 @@ export const LinkList = styled.div`
       line-height: 1.6;
 
       &:first-child {
+        width: 25%;
         border-top-left-radius: 6px;
         padding-left: 1.5rem;
       }
 
+      &:nth-last-child(3) {
+        width: 55%;
+      }
+
+      &:nth-last-child(2) {
+        width: 20%;
+      }
+
       &:last-child {
+        width: 0%;
         border-top-right-radius: 6px;
         padding-right: 1.5rem;
       }
@@ -102,6 +113,9 @@ export const LinkList = styled.div`
           &:hover {
             color: ${(props) => props.theme["green-300"]};;
           }
+
+          box-shadow: 0 0 0 0;
+
         }
       }
     }

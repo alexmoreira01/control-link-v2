@@ -3,7 +3,9 @@ import { FormEvent } from 'react';
 import { Link } from '../../../../context/useLinks';
 import { api } from '../../../../services/api';
 import { Input } from '../../../../components/Form/input';
-import { ButtonCreate, ButtonDelete, ModalContainer, ModelContent } from './styles';
+import { ButtonCreate, ButtonDelete, ModalContainer, ModelContent, TextBox } from './styles';
+import { styled as styledUi, keyframes } from '@stitches/react';
+
 
 interface Update_DeleteLinkModalProps {
   linkSelected: Link;
@@ -55,12 +57,14 @@ export function Update_DeleteLinkModal({ linkSelected, onModalClose, onReloadLin
   return (
     <ModalContainer>
         <Dialog.Portal>
+          <DialogOverlay />
+
           <ModelContent>
 
-            <Dialog.Overlay className="bg-black/60 inset-0 fixed" />
+            <Dialog.Overlay/>
 
-            <Dialog.Content className="fixed bg-zinc-700 py-8 px-10 text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg w-[480px] shadow-lg shadow-black/25">
-              <Dialog.Title className="flex justify-between items-center">
+            <DialogContent>
+              <Dialog.Title>
                 Edite o seu link
 
                   <ButtonDelete type='button' onClick={handleDeleteLink}>
@@ -69,16 +73,16 @@ export function Update_DeleteLinkModal({ linkSelected, onModalClose, onReloadLin
 
               </Dialog.Title>
 
-              <form onSubmit={handleUpdateLink} className="mt-8 flex flex-col gap-4">
-                <div className="flex flex-col gap-2">
+              <form onSubmit={handleUpdateLink}>
+                <TextBox>
                   <label htmlFor="label">Título do link</label>
                   <Input name="label" id='label' type='text' defaultValue={linkSelected.label} />
-                </div>
+                </TextBox>
 
-                <div className="flex flex-col gap-2">
+                <TextBox>
                   <label htmlFor="url" >Url do link</label>
                   <Input name="url" id='url' type='text' defaultValue={linkSelected.url} />
-                </div>
+                </TextBox>
 
                 <footer>
 
@@ -96,9 +100,26 @@ export function Update_DeleteLinkModal({ linkSelected, onModalClose, onReloadLin
 
               </form>
 
-            </Dialog.Content>
+            </DialogContent>
           </ModelContent>
         </Dialog.Portal>
     </ModalContainer>
   )
 }
+
+const overlayShow = keyframes({
+  '0%': { opacity: 0 },
+  '100%': { opacity: 1 },
+});
+
+
+const DialogOverlay = styledUi(Dialog.Overlay, {
+  backgroundColor: "#00000094",
+  position: 'fixed',
+  inset: 0,
+  animation: `${overlayShow} 150ms cubic-bezier(0.16, 1, 0.3, 1)`,
+});
+
+const DialogContent = styledUi(Dialog.Content, {
+  boxShadow: "0 0 0 0 !important",
+});
