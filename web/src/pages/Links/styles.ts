@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const LinkContainer = styled.main`
   flex: 1;
-  padding: 3rem 3.5rem;
+  padding: 2.5rem 2.5rem;
 
   display: flex;
   flex-direction: column;
@@ -103,7 +103,9 @@ export const LinkList = styled.div`
       &:last-child {
         padding-right: 1.5rem;
 
+
         button {
+
           color: ${(props) => props.theme["gray-100"]};
           background-color: transparent;
 
@@ -115,10 +117,21 @@ export const LinkList = styled.div`
           }
 
           box-shadow: 0 0 0 0;
-
+        
         }
       }
     }
+  }
+`;
+
+export const ButtonsActions = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
+
+export const ButtonTrashIcon = styled.button`
+  &:hover {
+    color: ${(props) => props.theme["red-500"]} !important;
   }
 `;
 
@@ -128,30 +141,36 @@ export const Pagination = styled.div`
 
   margin-top: 2rem;
 
-  button {
-    display: inline-flex;
-    height: 32px;
-    min-width: 32px;
-    
-    margin: 0px 3px;
-    padding: 0px 6px;
-    border-radius: 16px;
-    box-sizing: border-box;
-
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    
+  .buttonActive {
     background-color: ${(props) => props.theme["green-300"]};
-    color: ${(props) => props.theme["gray-100"]};
-    
-    font-weight: 400;
-    font-size: 0.875rem;
-    
-    cursor: pointer;
-    
-    transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   }
+`;
+
+export const ButtonPagination = styled.button`
+  display: inline-flex;
+  height: 32px;
+  min-width: 32px;
+  
+  margin: 0px 3px;
+  padding: 0px 6px;
+  border-radius: 16px;
+  box-sizing: border-box;
+
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  
+  color: ${(props) => props.theme["gray-900"]};
+  background-color: ${(props) => props.theme["gray-100"]};
+  
+  font-weight: 400;
+  font-size: 0.875rem;
+  
+  cursor: pointer;
+  
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+
+ 
 `;
 
 

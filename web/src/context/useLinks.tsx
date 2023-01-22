@@ -2,9 +2,13 @@ import { createContext, useContext, ReactNode, useEffect, useState } from "react
 import { useNavigate } from "react-router-dom";
 import { api } from "../services/api";
 
-export interface CreateLinkData {
+export interface LinkData {
     label: string;
     url: string;
+}
+
+export interface LinkDataUpdate extends LinkData {
+    id:string
 }
 
 export interface Link {
@@ -17,6 +21,9 @@ export interface Link {
 
 interface LinkContextData {
     links: Link[];
+    createNewLink: (data: LinkData) => void;
+    updateLink: (data: LinkDataUpdate) => void;
+    deleteLink: (id: string) => void;
 }
 
 export const LinkContext = createContext({} as LinkContextData);
@@ -25,36 +32,62 @@ interface LinksContextProviderProps {
     children: ReactNode;
 }
 
-
 export function LinkContextProvider({ children }: LinksContextProviderProps) {
-
-    // UseEffect get links
-
     const [links, setLinks] = useState<Link[]>([]);
+    const [isUpdate, setIsUpdate] = useState(false);
 
     useEffect(() => {
         api.get('/list').then(
             response => {
-                console.log(response.data)
-                // console.log(response.status)
                 setLinks(response.data)
-
             }
         )
-    }, []);
+    }, [isUpdate]);
 
-    function createNewLink(data: CreateLinkData) {
+    async function createNewLink(data: LinkData) {
+        try {
+            await api.post('/create', {
+                label: data.label,
+                url: data.url
+            })
+        } catch (err) {
+            return alert("Não foi possível criar o seu link!")
+        }
 
+        setIsUpdate(!isUpdate)
     }
 
-    function updateLink(){
+    async function updateLink(data: LinkDataUpdate) {
+        try {
+            await api.put(`/update/${data.id}`, {
+                label: data.label,
+                url: data.url,
+            })
+        } catch (err) {
+            return alert("Não foi possível editar o seu link!")
+        }
 
+        setIsUpdate(!isUpdate)
+    }
+
+    async function deleteLink(id: string) {
+
+      try {
+        await api.delete(`/delete/${id}`)
+      } catch (err) {
+        return alert("Não foi possível excluir o seu link!")
+      }
+
+      setIsUpdate(!isUpdate)
     }
 
     return (
-        <LinkContext.Provider 
-            value={{ 
-                links
+        <LinkContext.Provider
+            value={{
+                links,
+                createNewLink,
+                updateLink,
+                deleteLink
             }}
         >
             {children}

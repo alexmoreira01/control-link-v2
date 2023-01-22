@@ -11,8 +11,8 @@ export const LayoutContainer = styled.div`
 export const ContainerContent = styled.div`
   display: flex;
   flex-direction: column;
-  width: 74rem;
-  max-width: 74rem;
+  width: 78rem;
+  max-width: 78rem;
   height: fit-content;
   
   margin: 3rem auto;

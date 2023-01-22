@@ -1,35 +1,36 @@
 import * as Dialog from '@radix-ui/react-dialog';
 
-import { LinkForm } from '../LinkForm';
-
 import { FormEvent, useContext } from 'react';
-import { LinkContext, LinkData } from '../../../../context/useLinks';
+import { Link, LinkContext, LinkDataUpdate } from '../../../../context/useLinks';
 
-import { styled as styledUi, keyframes } from '@stitches/react';
+import { LinkForm } from '../LinkForm';
 import { ButtonCreate, ModalContainer, ModelContent } from './styles';
+import { styled as styledUi, keyframes } from '@stitches/react';
 
-interface CreateLinkModalProps {
+interface UpdateLinkModalProps {
+  linkSelected: Link;
   onCloseModal: () => void;
 }
 
-export function CreateLinkModal({ onCloseModal }: CreateLinkModalProps) {
-  const { createNewLink } = useContext(LinkContext)
+export function UpdateLinkModal({ linkSelected, onCloseModal }: UpdateLinkModalProps) {
+  const { updateLink } = useContext(LinkContext);
 
-  function handleCreateLink(event: FormEvent) {
+  async function handleUpdateLink(event: FormEvent) {
     event.preventDefault();
 
     const dataForm = new FormData(event.target as HTMLFormElement)
     const data = Object.fromEntries(dataForm)
 
-    const dataCreate: LinkData = {
+    const dataUpdate: LinkDataUpdate = {
+      id: String(linkSelected.id),
       label: String(data.label),
       url: String(data.url)
     }
 
-    createNewLink(dataCreate)
+    updateLink(dataUpdate);
 
-    alert("Seu link foi salvo com sucesso!")
-    onCloseModal()
+    alert("Seu link foi atualizado com sucesso!")
+    onCloseModal();
   }
 
   return (
@@ -38,23 +39,24 @@ export function CreateLinkModal({ onCloseModal }: CreateLinkModalProps) {
         <DialogOverlay />
         <ModelContent>
           <DialogContent>
-            <Dialog.Title>Cadastre o seu link </Dialog.Title>
+            <Dialog.Title>Edite o seu link</Dialog.Title>
 
-            <form onSubmit={handleCreateLink} action="">
-
-              <LinkForm/>
+            <form onSubmit={handleUpdateLink} action="">
+              <LinkForm linkSelected={linkSelected}/>
+              
               {/* <TextBox>
                 <label htmlFor="label">Título</label>
-                <input id='label' type="text" name="label"/>
+                <input name="label" id='label' type='text' defaultValue={linkSelected.label} />
               </TextBox>
 
               <TextBox>
                 <label htmlFor="url" >Url</label>
-                <input id='url' type='text' name="url"/>
+                <input name="url" id='url' type='text' defaultValue={linkSelected.url} />
               </TextBox> */}
+
               <footer>
-                <ButtonCreate type='submit' >
-                  Salvar
+                <ButtonCreate type='submit'>
+                  Atualizar
                 </ButtonCreate>
 
                 <Dialog.Close
@@ -72,14 +74,14 @@ export function CreateLinkModal({ onCloseModal }: CreateLinkModalProps) {
   )
 }
 
-// Styles Dialog
 const overlayShow = keyframes({
   '0%': { opacity: 0 },
   '100%': { opacity: 1 },
 });
 
+
 const DialogOverlay = styledUi(Dialog.Overlay, {
-  backgroundColor: "#00000094",
+  backgroundColor: "#00000039",
   position: 'fixed',
   inset: 0,
   animation: `${overlayShow} 150ms cubic-bezier(0.16, 1, 0.3, 1)`,

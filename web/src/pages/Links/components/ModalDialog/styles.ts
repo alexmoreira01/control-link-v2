@@ -6,25 +6,9 @@ export const ModalContainer = styled.div`
 
 `;
 
-const BaseButton = styled.button`
-    border: 0;
-    padding: 0.7rem;
-    border-radius: 6px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: ${(props) => props.theme["gray-100"]};
-
-    gap: 0.4rem;
-    font-weight: bold;
-
-    cursor: pointer;
-`;
-
 export const ModelContent = styled.div`
-    width: 450px;
-    height: 300px;
+    width: 550px;
+    height: 360px;
 
     padding: 2rem;
     
@@ -86,15 +70,29 @@ export const ModelContent = styled.div`
 
             background: ${(props) => props.theme["gray-400"]};
 
-            &:not(:disabled):hover {
+            &:hover {
             background: ${(props) => props.theme["gray-500"]};
             }
-
         }
-    }
-
-    
+    }    
 `;
+
+const BaseButton = styled.button`
+    border: 0;
+    padding: 0.7rem;
+    border-radius: 6px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: ${(props) => props.theme["gray-100"]};
+
+    gap: 0.4rem;
+    font-weight: bold;
+
+    cursor: pointer;
+`;
+
 
 export const ButtonCreate = styled(BaseButton)`
     background: ${(props) => props.theme["green-500"]};
@@ -104,39 +102,4 @@ export const ButtonCreate = styled(BaseButton)`
 }
 `;
 
-export const ButtonDelete = styled(BaseButton)`
-    border: none;
-
-    background: ${(props) => props.theme["red-500"]};
-
-    &:not(:disabled):hover {
-    background: ${(props) => props.theme["red-700"]};
-}
-`;
-
-export const TextBox = styled.div`
-    display: flex;
-    flex-direction: column;
-
-    label {
-        margin-top: 1rem;
-        margin-bottom: 0.5rem;
-    }
-
-    input {
-        all: unset;
-        /* width: 100%; */
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 15px;
-        line-height: 1.6;
-        color: ${(props) => props.theme["gray-100"]};
-        box-shadow: ${(props) => props.theme["gray-200"]} 0px 0px 0px 1px;
-        height: 35px;
-        flex: 1 1 0%;
-        border-radius: 4px;
-        padding: 0.7rem 0.9rem;
-    }
-`;
 

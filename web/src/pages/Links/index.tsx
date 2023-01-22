@@ -1,35 +1,31 @@
-import { useContext, useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
-
-import { PlusCircle, NotePencil } from "phosphor-react";
+import { useContext, useState } from 'react';
+import { LinkContext } from '../../context/useLinks';
 
 import { formatDistanceToNow } from "date-fns";
 import ptBR from "date-fns/esm/locale/pt-BR";
 
-import { CreateLinkModal } from './components/ModalDialog/CreateLinkModal';
-import Loading from '../../components/Loading';
-import { Update_DeleteLinkModal } from './components/ModalDialog/Update_DeleteLinkModal';
-import { api } from '../../services/api';
+import { PlusCircle, NotePencil, Trash } from "phosphor-react";
 
-import { LinkContainer, LinkHeading, LinkList, Pagination } from './styles';
-import { LinkContext } from '../../context/useLinks';
+import { CreateLinkModal } from './components/ModalDialog/CreateLinkModal';
+import { UpdateLinkModal } from './components/ModalDialog/UpdateLinkModal';
 import { ListLinksEmpty } from './components/ListLinksEmpty';
+import Loading from '../../components/Loading';
+
+import { ButtonPagination, ButtonsActions, ButtonTrashIcon, LinkContainer, LinkHeading, LinkList, Pagination } from './styles';
 
 export function Link() {
-  const { links } = useContext(LinkContext)
+  const { links, deleteLink } = useContext(LinkContext)
 
   const [isLoading, setIsLoading] = useState(false);
-  // const [links, setLinks] = useState<Link[]>([]);
 
   const [linksPerPage, setLinksPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(0)
 
   const [linkSelected, setLinkSelected] = useState(Object);
 
-  const [open, setOpen] = useState(false);
-  const [openUpdate_Delete, setOpenUpdate_Delete] = useState(false);
-
-  const [reload, setReload] = useState(false);
+  const [openCreateModal, setOpenCreateModal] = useState(false);
+  const [openUpdateModal, setOpenUpdateModal] = useState(false);
 
   // Pagination
   const pages = Math.ceil(links.length / linksPerPage);
@@ -37,16 +33,12 @@ export function Link() {
   const endIndex = startIndex + linksPerPage;
   const currentLinks = links.slice(startIndex, endIndex)
 
-  function handleCloseCreateLinkModal() {
-    setOpen(false)
+  function closeCreateLinkModal() {
+    setOpenCreateModal(false)
   }
 
-  function handleCloseUpdate_DeleteLinkModal() {
-    setOpenUpdate_Delete(false)
-  }
-
-  function handleReloadLinkRequest() {
-    setReload(true)
+  function handleCloseUpdateLinkModal() {
+    setOpenUpdateModal(false)
   }
 
   function handleActiveLoading() {
@@ -57,45 +49,44 @@ export function Link() {
     setIsLoading(false)
   }
 
-  // useEffect(() => {
-  //   api.get('/list').then(response => {
-  //     setLinks(response.data)
-  //   })
+  function handleDeleteLink(id: string) {
+    console.log(id)
 
-  //   setReload(false)
-  // }, [reload])
+    let deleteLinkMessage = confirm("Deseja realmente excluir esse link ?");
+
+    if (deleteLinkMessage) {
+      deleteLink(id);
+      return alert("Este link foi ecluido!")
+    }
+
+    alert("Ação cancelada!")
+  }
 
   return (
     <LinkContainer>
 
       <LinkHeading>
-        <h1>Gerenciar Links</h1>
+        <h1>Total de links: {links.length}</h1>
 
-        {/* Heading -- Modal create link*/}
-        <Dialog.Root open={open} onOpenChange={setOpen}>
+        <Dialog.Root open={openCreateModal} onOpenChange={setOpenCreateModal}>
 
           <Dialog.Trigger type="button">
             Criar
             <PlusCircle size={24} />
           </Dialog.Trigger>
-          
+
           <CreateLinkModal
-            onRequestClose={handleCloseCreateLinkModal}
-            onReloadLinksRequest={handleReloadLinkRequest}
+            onCloseModal={closeCreateLinkModal}
           />
         </Dialog.Root>
       </LinkHeading>
 
       {isLoading ? <Loading /> : ''}
 
-      {/* <div>
-        <span >Total de links: {links.length}</span>
-      </div> */}
-
       <LinkList >
         {
           links.length != 0 ?
-            <>
+            <div>
               <table >
                 <thead >
                   <tr>
@@ -121,19 +112,25 @@ export function Link() {
                       </td>
 
                       <td>
-                        <Dialog.Root open={openUpdate_Delete} onOpenChange={setOpenUpdate_Delete}>
-                          <Dialog.Trigger type="button"
-                            onClick={() => { setLinkSelected(link) }}
-                          >
-                            <NotePencil size={29} weight="fill" alt="Editar link" />
-                          </Dialog.Trigger>
+                        <ButtonsActions>
+                          <Dialog.Root open={openUpdateModal} onOpenChange={setOpenUpdateModal}>
+                            <Dialog.Trigger type="button"
+                              onClick={() => { setLinkSelected(link) }}
+                            >
+                              <NotePencil size={29} weight="fill" alt="Editar link" />
 
-                          <Update_DeleteLinkModal
-                            linkSelected={linkSelected}
-                            onModalClose={handleCloseUpdate_DeleteLinkModal}
-                            onReloadLinksRequest={handleReloadLinkRequest}
-                          />
-                        </Dialog.Root>
+                            </Dialog.Trigger>
+
+                            <ButtonTrashIcon onClick={() => { handleDeleteLink(link.id) }}>
+                              <Trash size={29} weight="fill" alt="Excluir link" />
+                            </ButtonTrashIcon>
+
+                            <UpdateLinkModal
+                              linkSelected={linkSelected}
+                              onCloseModal={handleCloseUpdateLinkModal}
+                            />
+                          </Dialog.Root>
+                        </ButtonsActions>
                       </td>
 
                     </tr>
@@ -145,23 +142,21 @@ export function Link() {
               <Pagination >
                 {Array.from(Array(pages), (item, index) => {
                   return (
-                    <button className={`rounded m-2 px-3 py-1 ${index === currentPage ? "bg-green-600" : "bg-zinc-300"}  hover:bg-green-700`}
+                    <ButtonPagination 
+                      key={index} 
+                      className={`${index === currentPage ? "buttonActive" : ""}`}
                       value={index}
                       onClick={() => { setCurrentPage(index) }} >{index + 1}
-                    </button>
+                    </ButtonPagination>
                   )
                 })}
               </Pagination>
-            </>
+            </div>
 
             :
             <ListLinksEmpty />
         }
       </LinkList>
-
-
     </LinkContainer>
   )
 }
-
-
