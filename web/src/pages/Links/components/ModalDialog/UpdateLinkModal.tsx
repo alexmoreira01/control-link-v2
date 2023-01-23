@@ -81,7 +81,7 @@ const overlayShow = keyframes({
 
 
 const DialogOverlay = styledUi(Dialog.Overlay, {
-  backgroundColor: "#00000039",
+  backgroundColor: "#0000002f",
   position: 'fixed',
   inset: 0,
   animation: `${overlayShow} 150ms cubic-bezier(0.16, 1, 0.3, 1)`,

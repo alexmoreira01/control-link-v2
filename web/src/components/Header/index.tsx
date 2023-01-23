@@ -1,32 +1,19 @@
+import { useContext } from "react";
 
-// interface ImportLinkModalProps {
-//     onReloadLinksRequest?: () => void;
-//     handleActiveLoading?: () => void;
-//     handleDesactiveLoading?: () => void;
-//   }
+import { LinkContext } from "../../context/useLinks";
+import { LinkSimple } from "phosphor-react";
 
-//     // async function handleImportLinkDevGo(){
-//     //   handleActiveLoading();
-
-//     //     try {
-//     //       await api.post('/devGo/import', {
-//     //         url: "https://devgo.com.br/"
-//     //       })
-
-//     //       onReloadLinksRequest();
-//     //     } catch (err) {
-//     //       alert("Não foi possível importar os links!")
-//     //     }
-
-//     //     handleDesactiveLoading()
-//     //   }
+import linkLogo from "../../assets/link.svg";
 
 import { ButtonImport, HeaderContainer } from "./styles";
 
-import linkLogo from "../../assets/link.svg";
-import { LinkSimple } from "phosphor-react";
-
 export function Header() {
+    const { importLinks } = useContext(LinkContext)
+
+    function handleImportLinks(){
+
+    }
+
     return (
         <HeaderContainer>
             <div>
@@ -36,7 +23,7 @@ export function Header() {
 
             <ButtonImport
 
-            // onClick={handleImportLinkDevGo}
+            onClick={handleImportLinks}
             >
                 Importar DevGo
                 <LinkSimple size={24}/>

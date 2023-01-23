@@ -24,6 +24,8 @@ interface LinkContextData {
     createNewLink: (data: LinkData) => void;
     updateLink: (data: LinkDataUpdate) => void;
     deleteLink: (id: string) => void;
+    importLinks: () => void;
+    isLoading: boolean;
 }
 
 export const LinkContext = createContext({} as LinkContextData);
@@ -35,6 +37,7 @@ interface LinksContextProviderProps {
 export function LinkContextProvider({ children }: LinksContextProviderProps) {
     const [links, setLinks] = useState<Link[]>([]);
     const [isUpdate, setIsUpdate] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         api.get('/list').then(
@@ -81,13 +84,34 @@ export function LinkContextProvider({ children }: LinksContextProviderProps) {
       setIsUpdate(!isUpdate)
     }
 
+    async function importLinks(){
+        setIsLoading(!isLoading);
+        // handleActiveLoading();
+
+//     //     try {
+//     //       await api.post('/devGo/import', {
+//     //         url: "https://devgo.com.br/"
+//     //       })
+
+//     //       onReloadLinksRequest();
+//     //     } catch (err) {
+//     //       alert("Não foi possível importar os links!")
+//     //     }
+
+//     //     handleDesactiveLoading()
+//     //   }
+        setIsLoading(!isLoading);
+    }
+
     return (
         <LinkContext.Provider
             value={{
                 links,
                 createNewLink,
                 updateLink,
-                deleteLink
+                deleteLink,
+                importLinks,
+                isLoading
             }}
         >
             {children}

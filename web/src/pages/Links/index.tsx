@@ -10,14 +10,11 @@ import { PlusCircle, NotePencil, Trash } from "phosphor-react";
 import { CreateLinkModal } from './components/ModalDialog/CreateLinkModal';
 import { UpdateLinkModal } from './components/ModalDialog/UpdateLinkModal';
 import { ListLinksEmpty } from './components/ListLinksEmpty';
-import Loading from '../../components/Loading';
 
 import { ButtonPagination, ButtonsActions, ButtonTrashIcon, LinkContainer, LinkHeading, LinkList, Pagination } from './styles';
 
 export function Link() {
   const { links, deleteLink } = useContext(LinkContext)
-
-  const [isLoading, setIsLoading] = useState(false);
 
   const [linksPerPage, setLinksPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(0)
@@ -41,17 +38,7 @@ export function Link() {
     setOpenUpdateModal(false)
   }
 
-  function handleActiveLoading() {
-    setIsLoading(true)
-  }
-
-  function handleDesactiveLoading() {
-    setIsLoading(false)
-  }
-
   function handleDeleteLink(id: string) {
-    console.log(id)
-
     let deleteLinkMessage = confirm("Deseja realmente excluir esse link ?");
 
     if (deleteLinkMessage) {
@@ -64,7 +51,7 @@ export function Link() {
 
   return (
     <LinkContainer>
-
+      
       <LinkHeading>
         <h1>Total de links: {links.length}</h1>
 
@@ -80,8 +67,6 @@ export function Link() {
           />
         </Dialog.Root>
       </LinkHeading>
-
-      {isLoading ? <Loading /> : ''}
 
       <LinkList >
         {

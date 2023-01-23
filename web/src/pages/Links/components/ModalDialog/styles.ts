@@ -12,7 +12,7 @@ export const ModelContent = styled.div`
 
     padding: 2rem;
     
-    position: absolute;
+    position: fixed;
     margin:0 auto;
     display:table;
     left: 0;
