@@ -2,7 +2,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { useContext, useState } from 'react';
 import { LinkContext } from '../../context/useLinks';
 
-import { formatDistanceToNow } from "date-fns";
+import { formatDistanceToNow, formatDistanceToNowStrict } from "date-fns";
 import ptBR from "date-fns/esm/locale/pt-BR";
 
 import { PlusCircle, NotePencil, Trash } from "phosphor-react";
@@ -90,7 +90,7 @@ export function Link() {
                       <td><a href={link.url} target="blank">{link.url}</a></td>
 
                       <td>
-                        {formatDistanceToNow(new Date(link.created_at), {
+                        {formatDistanceToNowStrict(new Date(link.created_at), {
                           addSuffix: true,
                           locale: ptBR
                         })}

@@ -12,7 +12,6 @@ export const LoadindContainer = styled.div`
     box-sizing: border-box;
     border-width: 0;
     border-style: solid;
-    /* border-color: #e5e7eb; */
 `;
 
 export const LoadingContent = styled.div`
@@ -20,15 +19,7 @@ export const LoadingContent = styled.div`
     border-radius: 9999px;
     -webkit-animation: spin 1s linear infinite;
     animation: spin 1s linear infinite;
-    /* animation-duration: 1s;
-    animation-timing-function: linear;
-    animation-delay: 0s;
-    animation-iteration-count: infinite;
-    animation-direction: normal;
-    animation-fill-mode: none;
-    animation-play-state: running;
-    animation-name: spin; */
-
+    
     width: 3rem;
     height: 3rem;
     display: inline-block;

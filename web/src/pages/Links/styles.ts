@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const LinkContainer = styled.main`
   flex: 1;
-  padding: 2.5rem 2.5rem;
+  padding: 3rem 2rem;
 
   display: flex;
   flex-direction: column;
@@ -151,7 +151,7 @@ export const ButtonPagination = styled.button`
   height: 32px;
   min-width: 32px;
   
-  margin: 0px 3px;
+  margin: 0px 5px;
   padding: 0px 6px;
   border-radius: 16px;
   box-sizing: border-box;

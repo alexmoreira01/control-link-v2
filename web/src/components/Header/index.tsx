@@ -11,7 +11,7 @@ export function Header() {
     const { importLinks } = useContext(LinkContext)
 
     function handleImportLinks(){
-
+        importLinks()
     }
 
     return (
