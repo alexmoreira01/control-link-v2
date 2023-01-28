@@ -1,9 +1,9 @@
 import { container } from "tsyringe";
 
-import { ILinkRepository } from "../../application/repositories/ILinksRepository";
-import { LinksRepository } from "../database/typeorm/repositories/LinksRepository";
+import { LinkRepositoryInterface } from "../../application/repositories/links-repository-interface";
+import { PrismaLinksRepository } from "../database/prisma/repositories/prisma-links-repository";
 
-container.registerSingleton<ILinkRepository>(
+container.registerSingleton<LinkRepositoryInterface>(
     "LinksRepository",
-    LinksRepository
+    PrismaLinksRepository
 )
