@@ -11,7 +11,6 @@ class ListLinksController {
         const links = await listLinksService.execute();
 
         return response.json(links);
-
     }
 }
 
