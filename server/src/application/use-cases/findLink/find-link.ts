@@ -2,13 +2,13 @@ import { inject, injectable } from 'tsyringe';
 
 import { Links } from '../../entities/typeorm/Links';
 
-import { ILinkRepository } from '../../repositories/ILinksRepository';
+import { LinkRepositoryInterface } from '../../repositories/links-repository-interface';
 
 @injectable()
 class FindLinkService {
     constructor(
         @inject("LinksRepository")
-        private linksRepository: ILinkRepository
+        private linksRepository: LinkRepositoryInterface
     ){}
 
     async execute(id: number): Promise<Links> {
