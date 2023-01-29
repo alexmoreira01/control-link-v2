@@ -1,17 +1,16 @@
 import { inject, injectable } from 'tsyringe';
 
-import { ILinkRepository } from '../../repositories/ILinksRepository';
-
-import { Links } from '../../entities/typeorm/Links';
+import { Link } from '../../entities/link';
+import { LinkRepository } from '../../repositories/links-repository-interface';
 
 @injectable()
 class ListLinksService {
     constructor(
         @inject("LinksRepository")
-        private linksRepository: ILinkRepository
+        private linksRepository: LinkRepository
     ){}
 
-    async execute(): Promise<Links[]> {
+    async execute(): Promise<Link[]> {
 
         const links = await this.linksRepository.listLinks()
 
