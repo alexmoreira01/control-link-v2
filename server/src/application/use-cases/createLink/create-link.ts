@@ -1,6 +1,8 @@
 import { inject, injectable } from 'tsyringe';
+import { AppError } from '../../../infra/errors/app-error';
 
-import { ILinkRepository } from '../../repositories/ILinksRepository';
+import { Link } from '../../entities/link';
+import { LinkRepository } from '../../repositories/links-repository-interface';
 
 interface IRequest{
     label: string;
@@ -8,22 +10,28 @@ interface IRequest{
 }
 
 @injectable()
-class CreateLinkService {
+class CreateLink {
     constructor(
         @inject("LinksRepository")
-        private linksRepository: ILinkRepository
+        private linksRepository: LinkRepository
     ){}
 
-    async execute({ label, url }:IRequest): Promise<boolean> {
+    async execute({ label, url }:IRequest): Promise<void> {
+
         const linkAlreadyExists = await this.linksRepository.findLinkByLabel(label);
 
-        if(linkAlreadyExists){
-            return false;
+        if (linkAlreadyExists){
+            throw new AppError("Title already exists!");    
         }
 
-        await this.linksRepository.createLink(label, url)
-        return true;
+        const newLink = new Link({
+            label: label,
+            url: url,
+            updated_at: null
+        });
+
+        await this.linksRepository.createLink(newLink);
     }
 }
 
-export { CreateLinkService };
+export { CreateLink };
