@@ -4,7 +4,6 @@ import { container } from "tsyringe";
 import { ListLinksService } from "../../../application/use-cases/listLinks/list-links";
 import { LinkViewModel } from "../view-models/link-view-model";
 
-
 class ListLinksController {
     async handle(request: Request, response: Response): Promise<Response> {
         const listLinksService = container.resolve(ListLinksService);
