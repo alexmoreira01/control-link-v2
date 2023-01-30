@@ -3,16 +3,17 @@ import * as cheerio from "cheerio";
 
 import { inject, injectable } from 'tsyringe';
 
-import { ILinkRepository } from '../../repositories/ILinksRepository';
+import { LinkRepository } from '../../repositories/links-repository-interface';
+import { Link } from '../../entities/link';
 
 @injectable()
-class ImportLinkService {
+class ImportLink {
     constructor(
         @inject("LinksRepository")
-        private linksRepository: ILinkRepository
+        private linksRepository: LinkRepository
     ) { }
 
-    async execute(url: string): Promise<boolean> {
+    async execute(url: string): Promise<void> {
         const seenUrls = {};
         const items = [];
 
@@ -34,17 +35,29 @@ class ImportLinkService {
             });
         });
 
-        for (let i = 0; i<items.length; i++){
+        for (let i = 0; i < items.length; i++) {
             const linkAlreadyExists = await this.linksRepository.findLinkByLabel(items[i].label);
 
-            if(linkAlreadyExists){
-                await this.linksRepository.updateLinkById(linkAlreadyExists.id, items[i].label, items[i].link);
-            }else {
-                await this.linksRepository.createLink(items[i].label, items[i].link)
+            if (linkAlreadyExists) {
+
+                let linkUpdate = linkAlreadyExists;
+
+                linkUpdate.label = items[i].label;
+                linkUpdate.url = items[i].link;
+                linkUpdate.updatedAt();
+
+                await this.linksRepository.updateLink(linkUpdate);
+            } else {
+
+                const newLink = new Link({
+                    label: items[i].label,
+                    url: items[i].link,
+                    updated_at: null
+                });
+
+                await this.linksRepository.createLink(newLink);
             }
         }
-
-        return true;
     }
 
     private getUrl = (link: string) => {
@@ -60,4 +73,4 @@ class ImportLinkService {
     }
 }
 
-export { ImportLinkService };
+export { ImportLink };
