@@ -6,16 +6,13 @@ import { FindLinkService } from "../../../application/use-cases/findLink/find-li
 
 class FindLinkController {
     async handle(request: Request, response: Response): Promise<Response> {
-        const findLinkService = container.resolve(FindLinkService);
-
         const linkId = request.params.id;
 
-        const id = Number(linkId);
+        const findLinkService = container.resolve(FindLinkService);
 
-        const links = await findLinkService.execute(id);
+        const link = await findLinkService.execute(linkId);
 
-        return response.json(links);
-
+        return response.json(link);
     }
 }
 
