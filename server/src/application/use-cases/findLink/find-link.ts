@@ -1,21 +1,26 @@
 import { inject, injectable } from 'tsyringe';
+import { AppError } from '../../../infra/errors/app-error';
+import { PrismaLinkMapper } from './../../../infra/database/prisma/mappers/prisma-link-mapper';
 
-import { Links } from '../../entities/typeorm/Links';
-
-import { LinkRepositoryInterface } from '../../repositories/links-repository-interface';
+import { Link } from '../../entities/link';
+import { LinkRepository } from '../../repositories/links-repository-interface';
 
 @injectable()
 class FindLinkService {
     constructor(
         @inject("LinksRepository")
-        private linksRepository: LinkRepositoryInterface
+        private linksRepository: LinkRepository
     ){}
 
-    async execute(id: number): Promise<Links> {
+    async execute(linkId: string): Promise<Link> {
 
-        const links = await this.linksRepository.findLinkById(id)
+        const link = await this.linksRepository.findLinkById(linkId)
 
-        return links;
+        if (!link){
+            throw new AppError("Link not exists!");    
+        }
+
+        return link;
     }
 }
 
