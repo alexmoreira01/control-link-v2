@@ -47,6 +47,10 @@ export class Link {
         this.props.created_at = created_at;
     }
 
+    public get created_at(): Date {
+        return this.props.created_at;
+    }
+
     public updatedAt() {
         this.props.updated_at = new Date();
     }

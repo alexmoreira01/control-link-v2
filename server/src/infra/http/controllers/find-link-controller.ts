@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 import { container } from "tsyringe";
 import { FindLinkService } from "../../../application/use-cases/findLink/find-link";
+import { LinkViewModel } from "../view-models/link-view-model";
 
 
 class FindLinkController {
@@ -12,7 +13,11 @@ class FindLinkController {
 
         const link = await findLinkService.execute(linkId);
 
-        return response.json(link);
+        // console.log(link)
+
+        // return response.json(link);
+        return response.json(LinkViewModel.toHTTP(link));
+
     }
 }
 

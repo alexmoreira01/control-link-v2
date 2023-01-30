@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 import { container } from "tsyringe";
 import { ListLinksService } from "../../../application/use-cases/listLinks/list-links";
+import { LinkViewModel } from "../view-models/link-view-model";
 
 
 class ListLinksController {
@@ -10,7 +11,7 @@ class ListLinksController {
 
         const links = await listLinksService.execute();
 
-        return response.json(links);
+        return response.json(links.map(LinkViewModel.toHTTP));
     }
 }
 
