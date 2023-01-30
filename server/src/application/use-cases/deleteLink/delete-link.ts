@@ -1,28 +1,24 @@
 import { inject, injectable } from 'tsyringe';
+import { AppError } from '../../../infra/errors/app-error';
 
-import { ILinkRepository } from "../../repositories/ILinksRepository";
-
-interface IRequest{
-    id: number;
-}
+import { LinkRepository } from "../../repositories/links-repository-interface";
 
 @injectable()
-class DeleteLinkService {
+class DeleteLink {
     constructor(
         @inject("LinksRepository")
-        private linksRepository: ILinkRepository
+        private linksRepository: LinkRepository
     ){}
 
-    async execute({ id }:IRequest): Promise<boolean> {
-        const linkExists = await this.linksRepository.findLinkById(id);
+    async execute(linkId: string): Promise<void> {
+        const linkExists = await this.linksRepository.findLinkById(linkId);
 
-        if(linkExists){
-            await this.linksRepository.deleteLinkById(id);
-            return true;
-        }else {
-            return false;
+        if (!linkExists){
+            throw new AppError("Link not exists!");    
         }
+        
+        await this.linksRepository.deleteLinkById(linkId);
     }
 }
 
-export { DeleteLinkService };
+export { DeleteLink };
