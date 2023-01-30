@@ -13,7 +13,7 @@ class UpdateLinkController {
 
         await updateLink.execute({ linkId, label, url});
 
-        return response.status(201).json();
+        return response.status(204).json();
     }
 }
 
