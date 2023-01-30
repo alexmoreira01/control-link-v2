@@ -1,13 +1,11 @@
 import { Link } from "../../../../application/entities/link";
-import { LinkRepositoryInterface } from "../../../../application/repositories/links-repository-interface";
+import { LinkRepository } from "../../../../application/repositories/links-repository-interface";
 import { PrismaLinkMapper } from "../mappers/prisma-link-mapper";
 import prismaService from "../prisma-service";
 
-class PrismaLinksRepository implements LinkRepositoryInterface {
+class PrismaLinksRepository implements LinkRepository {
 
-    // constructor(private prisma = prismaService) { }
     private prisma = prismaService
-
 
     async createLink(link: Link): Promise<void> {
         const raw = PrismaLinkMapper.toPrisma(link);
@@ -50,10 +48,15 @@ class PrismaLinksRepository implements LinkRepositoryInterface {
             },
         });
 
+        if (!link) {
+            return null;
+        }
+
         return PrismaLinkMapper.toDomain(link)
+        
     }
 
-    async updateLinkById(link: Link): Promise<void> {
+    async updateLink(link: Link): Promise<void> {
         const raw = PrismaLinkMapper.toPrisma(link);
 
         await this.prisma.link.update({

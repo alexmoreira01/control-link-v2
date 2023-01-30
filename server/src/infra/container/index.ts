@@ -1,9 +1,9 @@
 import { container } from "tsyringe";
 
-import { LinkRepositoryInterface } from "../../application/repositories/links-repository-interface";
+import { LinkRepository } from "../../application/repositories/links-repository-interface";
 import { PrismaLinksRepository } from "../database/prisma/repositories/prisma-links-repository";
 
-container.registerSingleton<LinkRepositoryInterface>(
+container.registerSingleton<LinkRepository>(
     "LinksRepository",
     PrismaLinksRepository
 )
