@@ -1,30 +1,36 @@
 import { inject, injectable } from 'tsyringe';
+import { AppError } from '../../../infra/errors/app-error';
 
-import { ILinkRepository } from '../../repositories/ILinksRepository';
+import { LinkRepository } from '../../repositories/links-repository-interface';
 
 interface IRequest {
-    id: number;
+    linkId: string;
     label: string;
     url: string;
 }
 
 @injectable()
-class UpdateLinkService {
+class UpdateLink {
     constructor(
         @inject("LinksRepository")
-        private linksRepository: ILinkRepository
-    ){}
+        private linksRepository: LinkRepository
+    ) { }
 
-    async execute({id, label, url}: IRequest): Promise<boolean> {
-        const linkAlreadyExists = await this.linksRepository.findLinkById(id);
+    async execute({ linkId, label, url }: IRequest): Promise<void> {
+        const linkAlreadyExists = await this.linksRepository.findLinkById(linkId);
 
-        if(linkAlreadyExists){
-            await this.linksRepository.updateLinkById(id, label, url);
-            return true;
+        if (!linkAlreadyExists) {
+            throw new AppError("Link not exists!");
         }
-    
-        return false;
+
+        let linkUpdate = linkAlreadyExists;
+
+        linkUpdate.label = label;
+        linkUpdate.url = url;
+        linkUpdate.updatedAt();
+
+        await this.linksRepository.updateLink(linkUpdate);
     }
 }
 
-export { UpdateLinkService };
+export { UpdateLink };
