@@ -4,9 +4,13 @@ import { AppError } from '../../../infra/errors/app-error';
 import { Link } from '../../entities/link';
 import { LinkRepository } from '../../repositories/links-repository-interface';
 
-interface IRequest{
+interface IRequest {
     label: string;
     url: string;
+}
+
+interface IResponse {
+    link: Link
 }
 
 @injectable()
@@ -16,7 +20,7 @@ class CreateLink {
         private linksRepository: LinkRepository
     ){}
 
-    async execute({ label, url }:IRequest): Promise<void> {
+    async execute({ label, url }:IRequest): Promise<IResponse> {
 
         const linkAlreadyExists = await this.linksRepository.findLinkByLabel(label);
 
@@ -24,13 +28,18 @@ class CreateLink {
             throw new AppError("Title already exists!");    
         }
 
-        const newLink = new Link({
+        const link = new Link({
             label: label,
             url: url,
             updated_at: null
         });
 
-        await this.linksRepository.createLink(newLink);
+        await this.linksRepository.createLink(link);
+
+        return {
+            link
+        } 
+        
     }
 }
 

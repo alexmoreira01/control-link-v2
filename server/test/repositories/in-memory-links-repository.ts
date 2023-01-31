@@ -1,29 +1,56 @@
 
-import { LinkRepositoryInterface } from "../../src/application/repositories/links-repository-interface";
+import { LinkRepository } from "../../src/application/repositories/links-repository-interface";
 import { Link } from "../../src/application/entities/link";
 
-class LinksRepositoryInMemory implements LinkRepositoryInterface {
-    link: Link[] = [];
+export class LinksRepositoryInMemory implements LinkRepository {
+    links: Link[] = [];
 
-    createLink(link: Link): Promise<void> {
-        throw new Error("Method not implemented.");
+    async createLink(link: Link): Promise<void> {
+        this.links.push(link);
     }
+    
     listLinks(): Promise<Link[]> {
         throw new Error("Method not implemented.");
     }
-    findLinkById(linkId: string): Promise<Link> {
-        throw new Error("Method not implemented.");
+    async findLinkById(linkId: string): Promise<Link> {
+        const link = this.links.find(
+            (item) => item.id === linkId,
+        );
+
+        if (!link) {
+            return null;
+        }
+
+        return link;
     }
-    findLinkByLabel(linkLabel: string): Promise<Link> {
-        throw new Error("Method not implemented.");
+    async findLinkByLabel(label: string): Promise<Link> {
+        const link = this.links.find(
+            (item) => item.label === label,
+        );
+
+        if (!link) {
+            return null;
+        }
+
+        return link
     }
-    updateLinkById(link: Link): Promise<void> {
-        throw new Error("Method not implemented.");
+    updateLink(link: Link): Promise<void> {
+        const linkIndex = this.links.findIndex(
+            (item) => item.id === link.id
+        );
+
+        if (linkIndex >= 0) {
+            this.links[linkIndex] = link;
+        }
+
+        return
     }
     deleteLinkById(linkId: string): Promise<void> {
         throw new Error("Method not implemented.");
     }
+    
 
     
+
 }
 
