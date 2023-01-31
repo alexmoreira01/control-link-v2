@@ -29,7 +29,7 @@
     "typeorm": "typeorm-ts-node-commonjs -d ./src/infra/database/typeorm/index.ts",
     "crawlerTest": "ts-node src/webCrawler/aluraBlog.ts",
     "crawlerDev": "ts-node src/webCrawler/devGo.ts",
-    "test": "jest"
+    "test": "cross-env NODE_ENV=test jest --runInBand --forceExit"
   },
   "devDependencies": {
     "@babel/cli": "^7.18.10",
