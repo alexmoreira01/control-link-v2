@@ -1,12 +1,17 @@
 import { inject, injectable } from 'tsyringe';
 import { AppError } from '../../../infra/errors/app-error';
 
+import { Link } from '../../entities/link';
 import { LinkRepository } from '../../repositories/links-repository-interface';
 
 interface IRequest {
     linkId: string;
     label: string;
     url: string;
+}
+
+interface IResponse {
+    link: Link
 }
 
 @injectable()
@@ -16,7 +21,7 @@ class UpdateLink {
         private linksRepository: LinkRepository
     ) { }
 
-    async execute({ linkId, label, url }: IRequest): Promise<void> {
+    async execute({ linkId, label, url }: IRequest): Promise<IResponse> {
         const linkAlreadyExists = await this.linksRepository.findLinkById(linkId);
 
         if (!linkAlreadyExists) {
@@ -30,6 +35,10 @@ class UpdateLink {
         linkUpdate.updatedAt();
 
         await this.linksRepository.updateLink(linkUpdate);
+
+        return {
+            link: linkUpdate
+        }
     }
 }
 

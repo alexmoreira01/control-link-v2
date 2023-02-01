@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 import { container } from "tsyringe";
 import { UpdateLink } from "../../../application/use-cases/updateLink/update-link";
+import { LinkViewModel } from "../view-models/link-view-model";
 
 
 class UpdateLinkController {
@@ -11,9 +12,13 @@ class UpdateLinkController {
         
         const updateLink = container.resolve(UpdateLink);
 
-        await updateLink.execute({ linkId, label, url});
+        const { link } = await updateLink.execute({ 
+            linkId, 
+            label, 
+            url
+        });
 
-        return response.status(204).json();
+        return response.status(200).json(LinkViewModel.toHTTP(link));
     }
 }
 
