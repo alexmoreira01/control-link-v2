@@ -9,9 +9,10 @@ export class LinksRepositoryInMemory implements LinkRepository {
         this.links.push(link);
     }
     
-    listLinks(): Promise<Link[]> {
-        throw new Error("Method not implemented.");
+    async listLinks(): Promise<Link[]> {
+        return this.links;
     }
+    
     async findLinkById(linkId: string): Promise<Link> {
         const link = this.links.find(
             (item) => item.id === linkId,
@@ -34,7 +35,7 @@ export class LinksRepositoryInMemory implements LinkRepository {
 
         return link
     }
-    updateLink(link: Link): Promise<void> {
+    async updateLink(link: Link): Promise<void> {
         const linkIndex = this.links.findIndex(
             (item) => item.id === link.id
         );
@@ -43,7 +44,6 @@ export class LinksRepositoryInMemory implements LinkRepository {
             this.links[linkIndex] = link;
         }
 
-        return
     }
     deleteLinkById(linkId: string): Promise<void> {
         throw new Error("Method not implemented.");
