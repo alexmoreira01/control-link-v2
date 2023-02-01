@@ -1,16 +1,16 @@
 import { Request, Response } from "express";
 
 import { container } from "tsyringe";
-import { FindLinkService } from "../../../application/use-cases/findLink/find-link";
+import { FindLink } from "../../../application/use-cases/findLink/find-link";
 import { LinkViewModel } from "../view-models/link-view-model";
 
 class FindLinkController {
     async handle(request: Request, response: Response): Promise<Response> {
         const linkId = request.params.id;
 
-        const findLinkService = container.resolve(FindLinkService);
+        const findLink = container.resolve(FindLink);
 
-        const link = await findLinkService.execute(linkId);
+        const link = await findLink.execute(linkId);
 
         return response.json(LinkViewModel.toHTTP(link));
     }

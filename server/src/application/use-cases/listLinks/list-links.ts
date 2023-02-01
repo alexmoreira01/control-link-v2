@@ -4,7 +4,7 @@ import { Link } from '../../entities/link';
 import { LinkRepository } from '../../repositories/links-repository-interface';
 
 @injectable()
-class ListLinksService {
+class ListLinks {
     constructor(
         @inject("LinksRepository")
         private linksRepository: LinkRepository
@@ -18,4 +18,4 @@ class ListLinksService {
     }
 }
 
-export { ListLinksService };
+export { ListLinks };

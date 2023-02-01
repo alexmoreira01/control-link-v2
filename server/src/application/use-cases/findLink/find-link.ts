@@ -6,7 +6,7 @@ import { Link } from '../../entities/link';
 import { LinkRepository } from '../../repositories/links-repository-interface';
 
 @injectable()
-class FindLinkService {
+class FindLink {
     constructor(
         @inject("LinksRepository")
         private linksRepository: LinkRepository
@@ -14,14 +14,14 @@ class FindLinkService {
 
     async execute(linkId: string): Promise<Link> {
 
-        const link = await this.linksRepository.findLinkById(linkId)
+        const linkExists = await this.linksRepository.findLinkById(linkId)
 
-        if (!link){
-            throw new AppError("Link not exists!");    
+        if (!linkExists){
+            throw new AppError("Link not existing!");    
         }
 
-        return link;
+        return linkExists;
     }
 }
 
-export { FindLinkService };
+export { FindLink };
