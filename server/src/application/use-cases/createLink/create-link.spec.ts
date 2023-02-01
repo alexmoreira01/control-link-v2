@@ -17,8 +17,8 @@ describe("Create link", () => {
             url: "url a link"
         });
 
-        // expect(linksRepositoryInMemory.links).toHaveLength(1);
         expect(link).toHaveProperty("id");
+        expect(linksRepositoryInMemory.links).toHaveLength(1);
     });
 
     it("should not be able to create a link with title equals", async () => {
