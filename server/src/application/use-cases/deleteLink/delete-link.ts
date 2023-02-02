@@ -14,7 +14,7 @@ class DeleteLink {
         const linkExists = await this.linksRepository.findLinkById(linkId);
 
         if (!linkExists){
-            throw new AppError("Link not exists!");    
+            throw new AppError("Link not existing!");    
         }
         
         await this.linksRepository.deleteLinkById(linkId);

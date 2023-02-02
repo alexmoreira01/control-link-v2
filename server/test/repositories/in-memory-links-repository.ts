@@ -1,4 +1,3 @@
-
 import { LinkRepository } from "../../src/application/repositories/links-repository-interface";
 import { Link } from "../../src/application/entities/link";
 
@@ -43,14 +42,11 @@ export class LinksRepositoryInMemory implements LinkRepository {
         if (linkIndex >= 0) {
             this.links[linkIndex] = link;
         }
-
     }
-    deleteLinkById(linkId: string): Promise<void> {
-        throw new Error("Method not implemented.");
+
+    async deleteLinkById(linkId: string): Promise<void> {
+        const links = this.links.filter((item) => item.id !== linkId);
+
+        this.links = links
     }
-    
-
-    
-
 }
-
