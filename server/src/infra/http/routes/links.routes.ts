@@ -17,7 +17,7 @@ const updateLinkController = new UpdateLinkController();
 const deleteLinkController = new DeleteLinkController();
 const importLinkController = new ImportLinkController();
 
-linksRoutes.post('/create', createLinkController.handle);
+linksRoutes.post('/', createLinkController.handle);
 linksRoutes.get('/list', listLinkController.handle);
 linksRoutes.get('/find/:id', findLinkController.handle);
 linksRoutes.put('/update/:id', updateLinkController.handle);
