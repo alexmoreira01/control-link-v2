@@ -9,6 +9,42 @@
         }
     },
     "paths": {
-        
+        "/link": {
+            "post": {
+                "tags": ["Link"],
+                "summary": "Create a link",
+                "description": "Create a new link",
+                "requestBody":{
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "type": "object",
+                                "properties": {
+                                    "label": {
+                                        "type": "string"
+                                    },
+                                    "url": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example":{
+                                    "label": "title link sample",
+                                    "url": "http://vos.kp/ud/sample"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Title already exists!"
+                    }
+
+                }
+            }
+        }
     }
 }
