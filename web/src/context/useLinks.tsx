@@ -48,7 +48,7 @@ export function LinkContextProvider({ children }: LinksContextProviderProps) {
 
   async function createNewLink(data: LinkData) {
     try {
-      await api.post('/create', {
+      await api.post('/', {
         label: data.label,
         url: data.url
       })
