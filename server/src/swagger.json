@@ -1,0 +1,14 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "ControlLinks Documentation",
+        "description": "This is an API for links control",
+        "version": "1.0.0",
+        "contact": {
+            "email": "alex.moreira.andrade@hotmail.com"
+        }
+    },
+    "paths": {
+        
+    }
+}
