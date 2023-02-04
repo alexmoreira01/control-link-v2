@@ -10,8 +10,9 @@ import { PlusCircle, NotePencil, Trash } from "phosphor-react";
 import { CreateLinkModal } from './components/ModalDialog/CreateLinkModal';
 import { UpdateLinkModal } from './components/ModalDialog/UpdateLinkModal';
 import { ListLinksEmpty } from './components/ListLinksEmpty';
+import { Pagination } from './components/Pagination';
 
-import { ButtonPagination, ButtonsActions, ButtonTrashIcon, LinkContainer, LinkHeading, LinkList, Pagination } from './styles';
+import { ButtonsActions, ButtonTrashIcon, LinkContainer, LinkHeading, LinkList } from './styles';
 
 export function Link() {
   const { links, deleteLink } = useContext(LinkContext)
@@ -47,6 +48,10 @@ export function Link() {
     }
 
     alert("Ação cancelada!")
+  }
+
+  function handleSetCurrentPage(index: number) {
+    setCurrentPage(index)
   }
 
   return (
@@ -124,18 +129,12 @@ export function Link() {
 
               </table>
 
-              <Pagination >
-                {Array.from(Array(pages), (item, index) => {
-                  return (
-                    <ButtonPagination 
-                      key={index} 
-                      className={`${index === currentPage ? "buttonActive" : ""}`}
-                      value={index}
-                      onClick={() => { setCurrentPage(index) }} >{index + 1}
-                    </ButtonPagination>
-                  )
-                })}
-              </Pagination>
+              <Pagination
+                pages={pages}
+                currentPage={currentPage}
+                onSetCurrentPage={handleSetCurrentPage}
+              />
+
             </div>
 
             :
