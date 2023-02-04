@@ -39,7 +39,7 @@ export function LinkContextProvider({ children }: LinksContextProviderProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    api.get('/list').then(
+    api.get('/').then(
       response => {
         setLinks(response.data)
       }
@@ -61,7 +61,7 @@ export function LinkContextProvider({ children }: LinksContextProviderProps) {
 
   async function updateLink(data: LinkDataUpdate) {
     try {
-      await api.put(`/update/${data.id}`, {
+      await api.put(`/${data.id}`, {
         label: data.label,
         url: data.url,
       })
@@ -75,7 +75,7 @@ export function LinkContextProvider({ children }: LinksContextProviderProps) {
   async function deleteLink(id: string) {
 
     try {
-      await api.delete(`/delete/${id}`)
+      await api.delete(`/${id}`)
     } catch (err) {
       return alert("Não foi possível excluir o seu link!")
     }
@@ -87,7 +87,7 @@ export function LinkContextProvider({ children }: LinksContextProviderProps) {
     setIsLoading(true);
 
     try {
-      await api.post('/devGo/import', {
+      await api.post('/import', {
         url: "https://devgo.com.br/"
       })
     } catch (err) {
