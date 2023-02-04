@@ -3,7 +3,7 @@
     "info": {
         "title": "ControlLinks Documentation",
         "description": "This is an API for links control",
-        "version": "1.0.0",
+        "version": "2.0.0",
         "contact": {
             "email": "alex.moreira.andrade@hotmail.com"
         }
@@ -11,13 +11,15 @@
     "paths": {
         "/link": {
             "post": {
-                "tags": ["Link"],
+                "tags": [
+                    "Link"
+                ],
                 "summary": "Create a link",
                 "description": "Create a new link",
-                "requestBody":{
+                "requestBody": {
                     "content": {
-                        "application/json":{
-                            "schema":{
+                        "application/json": {
+                            "schema": {
                                 "type": "object",
                                 "properties": {
                                     "label": {
@@ -27,7 +29,7 @@
                                         "type": "string"
                                     }
                                 },
-                                "example":{
+                                "example": {
                                     "label": "title link sample",
                                     "url": "http://vos.kp/ud/sample"
                                 }
@@ -42,7 +44,192 @@
                     "400": {
                         "description": "Title already exists!"
                     }
-
+                }
+            },
+            "get": {
+                "tags": [
+                    "Link"
+                ],
+                "summary": "List all links",
+                "description": "List all links",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json":{
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "label": {
+                                                "type": "string"
+                                            },
+                                            "url": {
+                                                "type": "string"
+                                            },
+                                            "created_at": {
+                                                "type": "string"
+                                            },
+                                            "updated_at": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/link/find/{id}":{
+            "get": {
+                "tags": [
+                    "Link"
+                ],
+                "summary": "List a link",
+                "description": "List a link by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Link id",
+                        "required": true,
+                        "schema":{
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json":{
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "label": {
+                                                "type": "string"
+                                            },
+                                            "url": {
+                                                "type": "string"
+                                            },
+                                            "created_at": {
+                                                "type": "string"
+                                            },
+                                            "updated_at": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/link/{id}":{
+            "put": {
+                "tags": [
+                    "Link"
+                ],
+                "summary": "Update a link",
+                "description": "Update a link by id",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "label": {
+                                        "type": "string"
+                                    },
+                                    "url": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "label": "title link update sample",
+                                    "url": "http://vos.kp/ud/update/sample"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Link not exists!"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Link"
+                ],
+                "summary": "Delete a link",
+                "description": "Delete a link by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Link id",
+                        "required": true,
+                        "schema":{
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Link not existing!"
+                    }
+                }
+            }
+        },
+        "/link/import":{
+            "post": {
+                "tags": [
+                    "Link"
+                ],
+                "summary": "Import links",
+                "description": "Import links from DevGo",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "url": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "url": "https://devgo.com.br/"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
                 }
             }
         }
