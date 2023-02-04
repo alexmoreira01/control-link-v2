@@ -18,10 +18,15 @@ const deleteLinkController = new DeleteLinkController();
 const importLinkController = new ImportLinkController();
 
 linksRoutes.post('/', createLinkController.handle);
-linksRoutes.get('/list', listLinkController.handle);
+
+linksRoutes.get('/', listLinkController.handle);
+
 linksRoutes.get('/find/:id', findLinkController.handle);
-linksRoutes.put('/update/:id', updateLinkController.handle);
-linksRoutes.delete('/delete/:id', deleteLinkController.handle);
-linksRoutes.post('/devGo/import', importLinkController.handle);
+
+linksRoutes.put('/:id', updateLinkController.handle);
+
+linksRoutes.delete('/:id', deleteLinkController.handle);
+
+linksRoutes.post('/import', importLinkController.handle);
 
 export { linksRoutes }
