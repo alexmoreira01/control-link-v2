@@ -49,7 +49,7 @@ export const LinkList = styled.div`
 
   table {
     width: 100%;
-    border-collapse: collapse; // Uma so borda entre os elementos
+    border-collapse: collapse;
     min-width: 600px;
 
     margin-top: 1.3rem;
