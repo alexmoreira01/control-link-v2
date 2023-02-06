@@ -12,10 +12,13 @@ import { UpdateLinkModal } from './components/ModalDialog/UpdateLinkModal';
 import { ListLinksEmpty } from './components/ListLinksEmpty';
 import { Pagination } from './components/Pagination';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { ButtonsActions, ButtonTrashIcon, LinkContainer, LinkHeading, LinkList } from './styles';
 
 export function Link() {
-  const { links, deleteLink } = useContext(LinkContext)
+  const { links, deleteLink, notifyWarning } = useContext(LinkContext)
 
   const [linksPerPage, setLinksPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(0)
@@ -44,10 +47,10 @@ export function Link() {
 
     if (deleteLinkMessage) {
       deleteLink(id);
-      return alert("Este link foi ecluido!")
+      return
     }
 
-    alert("Ação cancelada!")
+    notifyWarning("Ação cancelada!")
   }
 
   function handleSetCurrentPage(index: number) {
@@ -56,7 +59,9 @@ export function Link() {
 
   return (
     <LinkContainer>
-      
+
+      <ToastContainer />
+
       <LinkHeading>
         <h1>Total de links: {links.length}</h1>
 

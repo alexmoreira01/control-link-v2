@@ -28,7 +28,6 @@ export function CreateLinkModal({ onCloseModal }: CreateLinkModalProps) {
 
     createNewLink(dataCreate)
 
-    alert("Seu link foi salvo com sucesso!")
     onCloseModal()
   }
 

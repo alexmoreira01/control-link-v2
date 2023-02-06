@@ -28,8 +28,7 @@ export function UpdateLinkModal({ linkSelected, onCloseModal }: UpdateLinkModalP
     }
 
     updateLink(dataUpdate);
-
-    alert("Seu link foi atualizado com sucesso!")
+    
     onCloseModal();
   }
 
